@@ -3,11 +3,11 @@
   "description": "Base Level Extension",
   "version": "1.0",
   "manifest_version": 3,
+  "permissions": ["storage"],
   "content_scripts": [
     {
       "matches": ["https://qiita.com/*"],
-      "css": ["my-styles.css"],
-      "js": ["content-script.js"]
+      "js": ["js/qiita-confetti.cjs.js"]
     }
   ]
 }
