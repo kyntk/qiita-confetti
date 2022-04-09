@@ -1,16 +1,20 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
-const path = require('path')
+const { resolve } = require('path')
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: './release/js',
-    lib: {
-      entry: path.resolve(__dirname, 'src/main.tsx'),
-      name: 'confetti',
-      formats: ['cjs'],
+    outDir: './release/dist',
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'main.html'),
+        option: resolve(__dirname, 'options.html'),
+      },
+      output: {
+        entryFileNames: '[name].js',
+      },
     },
   },
 })
