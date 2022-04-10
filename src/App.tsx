@@ -2,45 +2,53 @@ import { useEffect, useState } from 'react'
 import Confetti from 'react-confetti'
 import useWindowSize from 'react-use/lib/useWindowSize'
 
-const articlePageRegExp = (userName: string) =>
-  new RegExp(`^/${userName}/items/[\\w\\d]{20}$`, 'i')
+const articlePageRegExp = /^\/(\w+)\/items\/[\w\d]{20}$/i
 const likeRegExp = (userName: string) =>
   new RegExp(`/${userName}/items/[\\w\\d]{20}/likers$`, 'i')
 
 type UserName = string | undefined
 
-export default () => {
-  const { width, height } = useWindowSize()
-  const [userName, setUserName] = useState<UserName>(undefined)
+const getUserNameFromStrage = async (): Promise<string | null> => {
+  if (typeof chrome.storage === 'undefined') return null
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const setUser = async () => {
-        console.log('setUser')
+  const { userName } = await chrome.storage.local.get('userName')
+  return userName as string
+}
 
-        const { userName: strageUser } = await chrome.storage.local.get(
-          'userName'
-        )
-        console.log('strageUser', strageUser)
-        const userName: UserName = strageUser
-          ? strageUser
-          : window.prompt('あなたのユーザー名を入力してください', '')
-        chrome.storage.local.set({ userName })
-        setUserName(userName)
-      }
-      setUser()
-    }
-  }, [])
-
-  if (typeof window === 'undefined') return null
-  if (!userName?.length) return null
-  if (!articlePageRegExp(userName).test(window.location.pathname)) return null
-
+const getLgtm = (userName: string) => {
   const tag = Array.from(document.getElementsByTagName('a')).find((tag) =>
     likeRegExp(userName).test(tag.href)
   )
 
-  const lgtm = Number(tag?.innerText) || 0
+  return Number(tag?.innerText)
+}
+
+const App = () => {
+  const { width, height } = useWindowSize()
+  const [userName, setUserName] = useState<UserName>(undefined)
+  const found =
+    typeof window !== 'undefined' &&
+    window.location.pathname.match(articlePageRegExp)
+  const author = (found && found[1]) || ''
+
+  useEffect(() => {
+    if (userName?.length || (import.meta.env.PROD && !found)) return
+
+    getUserNameFromStrage().then((userName) => {
+      if (userName) return setUserName(userName)
+
+      const inputUserName = window.prompt(
+        'あなたのユーザー名を入力してください',
+        ''
+      )
+      chrome.storage?.local?.set({ userName: inputUserName })
+      inputUserName && setUserName(inputUserName)
+    })
+  }, [])
+
+  if (!userName?.length || author !== userName) return null
+
+  const lgtm = getLgtm(userName) || 0
   const num = Math.log(lgtm + 1) * 1000
 
   return (
@@ -52,3 +60,5 @@ export default () => {
     />
   )
 }
+
+export default App
