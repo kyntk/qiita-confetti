@@ -10,7 +10,7 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, 'src/main.tsx'),
       name: 'confetti',
-      formats: ['cjs'],
+      formats: ['cjs'], // File size is larger when it is `es`
     },
   },
 })
