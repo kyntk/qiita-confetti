@@ -1,10 +1,11 @@
 {
   "name": "qiita-confetti",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build ",
+    "build": "tsc && vite build && yarn zip",
+    "zip": "zip -r extension extension",
     "preview": "vite preview"
   },
   "dependencies": {
