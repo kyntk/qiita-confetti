@@ -56,7 +56,7 @@ const App = () => {
       width={width}
       height={height}
       numberOfPieces={num}
-      style={{ position: 'fixed' }}
+      style={{ position: 'fixed', zIndex: 10 }}
     />
   )
 }
