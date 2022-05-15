@@ -6,7 +6,7 @@ const path = require('path')
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: './extension/js',
+    outDir: '../../extension/js',
     lib: {
       entry: path.resolve(__dirname, 'src/main.tsx'),
       name: 'confetti',
