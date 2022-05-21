@@ -8,12 +8,15 @@
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
+  "action": {
+    "default_popup": "option/index.html"
+  },
   "author": "kyntk",
   "permissions": ["storage"],
   "content_scripts": [
     {
       "matches": ["https://qiita.com/*"],
-      "js": ["js/qiita-confetti.cjs.js"]
+      "js": ["js/confetti.cjs.js"]
     }
   ]
 }

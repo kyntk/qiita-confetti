@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "clean": "rm -f ../../extension/option/assets/*",
+    "build": "yarn clean && tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
