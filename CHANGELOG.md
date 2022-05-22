@@ -2,6 +2,9 @@
 
 ## Not Released
 
+## 1.2.0 - 2022-05-22
+
+- [#12](https://github.com/kyntk/qiita-confetti/pull/12) Add temporary disabling feature
 - [#6](https://github.com/kyntk/qiita-confetti/pull/6) Make Repository monorepo
 
 ## 1.1.0 - 2022-04-17

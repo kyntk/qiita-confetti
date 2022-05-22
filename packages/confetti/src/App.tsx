@@ -26,6 +26,8 @@ const getLgtm = (userName: string) => {
 const App = () => {
   const { width, height } = useWindowSize()
   const [userName, setUserName] = useState<UserName>(undefined)
+  const [enabled, setEnabled] = useState(false)
+
   const found =
     typeof window !== 'undefined' &&
     window.location.pathname.match(articlePageRegExp)
@@ -46,6 +48,20 @@ const App = () => {
     })
   }, [])
 
+  useEffect(() => {
+    if (typeof chrome.storage === 'undefined') return setEnabled(true)
+
+    chrome.storage.local
+      .get('enabled')
+      .then(({ enabled }) => setEnabled(enabled))
+
+    chrome.storage.onChanged.addListener((changes, namespace) => {
+      const { enabled } = changes
+      if (typeof enabled === 'undefined' || namespace !== 'local') return
+      if (enabled.newValue !== enabled) setEnabled(enabled.newValue)
+    })
+  }, [])
+
   if (!userName?.length || author !== userName) return null
 
   const lgtm = getLgtm(userName) || 0
@@ -56,6 +72,7 @@ const App = () => {
       width={width}
       height={height}
       numberOfPieces={num}
+      recycle={enabled}
       style={{ position: 'fixed', zIndex: 10 }}
     />
   )

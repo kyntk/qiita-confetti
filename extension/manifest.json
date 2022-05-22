@@ -2,18 +2,21 @@
   "manifest_version": 3,
   "name": "Qiita Confetti",
   "description": "Best praises you for writing articles on Qiita!",
-  "version": "1.1",
+  "version": "1.2.0",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "option/index.html"
   },
   "author": "kyntk",
   "permissions": ["storage"],
   "content_scripts": [
     {
       "matches": ["https://qiita.com/*"],
-      "js": ["js/qiita-confetti.cjs.js"]
+      "js": ["js/confetti.cjs.js"]
     }
   ]
 }

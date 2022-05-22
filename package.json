@@ -1,10 +1,11 @@
 {
   "name": "qiita-confetti",
   "private": true,
-  "version": "1.1.0",
+  "version": "1.2.0",
   "scripts": {
-    "build": "turbo run build",
-    "zip": "zip -r extension extension"
+    "dev": "turbo run dev",
+    "build": "turbo run build && yarn zip",
+    "zip": "rm -f extension.zip && zip -r extension extension"
   },
   "workspaces": [
     "packages/*"
