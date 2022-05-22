@@ -4,8 +4,8 @@
   "version": "1.2.0",
   "scripts": {
     "dev": "turbo run dev",
-    "build": "rm -f extension.zip && turbo run build && yarn zip",
-    "zip": "zip -r extension extension"
+    "build": "turbo run build && yarn zip",
+    "zip": "rm -f extension.zip && zip -r extension extension"
   },
   "workspaces": [
     "packages/*"
