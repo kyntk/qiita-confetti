@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Confetti from 'react-confetti'
 import useWindowSize from 'react-use/lib/useWindowSize'
+import { ConfettiAmountOptions, isAmountValue } from '../popup/App'
 
 const articlePageRegExp = /^\/(\w+)\/items\/[\w\d]{20}$/i
 const likeRegExp = (userName: string) =>
@@ -23,16 +24,32 @@ const getLgtm = (userName: string) => {
   return Number(tag?.innerText)
 }
 
+const getAmountIndicator = (
+  lgtm: number,
+  amount: ConfettiAmountOptions
+): number => {
+  if (lgtm === 0) return 0
+  const baseNum = Math.log(lgtm + 1) * 1000
+
+  if (amount === 'large') {
+    return baseNum * 2
+  } else if (amount === 'hyperLarge') {
+    return baseNum * 4
+  }
+  return baseNum
+}
+
 const App = () => {
   const { width, height } = useWindowSize()
   const [userName, setUserName] = useState<UserName>(undefined)
-  const [enabled, setEnabled] = useState(false)
+  const [amount, setAmount] = useState<ConfettiAmountOptions>('default')
 
   const found =
     typeof window !== 'undefined' &&
     window.location.pathname.match(articlePageRegExp)
   const author = (found && found[1]) || ''
 
+  // Set username
   useEffect(() => {
     if (userName?.length || (import.meta.env.PROD && !found)) return
 
@@ -48,31 +65,33 @@ const App = () => {
     })
   }, [])
 
+  // Set amount
   useEffect(() => {
-    if (typeof chrome.storage === 'undefined') return setEnabled(true)
+    if (typeof chrome.storage === 'undefined') return
 
     chrome.storage.local
-      .get('enabled')
-      .then(({ enabled }) => setEnabled(enabled))
+      .get('amount')
+      .then(
+        ({ amount }) => amount && isAmountValue(amount) && setAmount(amount)
+      )
 
     chrome.storage.onChanged.addListener((changes, namespace) => {
-      const { enabled } = changes
-      if (typeof enabled === 'undefined' || namespace !== 'local') return
-      if (enabled.newValue !== enabled) setEnabled(enabled.newValue)
+      const { amount } = changes
+      if (typeof amount === 'undefined' || namespace !== 'local') return
+      if (amount.newValue !== amount) setAmount(amount.newValue)
     })
   }, [])
 
   if (!userName?.length || author !== userName) return null
 
   const lgtm = getLgtm(userName) || 0
-  const num = Math.log(lgtm + 1) * 1000
 
   return (
     <Confetti
       width={width}
       height={height}
-      numberOfPieces={num}
-      recycle={enabled}
+      numberOfPieces={getAmountIndicator(lgtm, amount)}
+      recycle={amount !== 'little'}
       style={{ position: 'fixed', zIndex: 10 }}
     />
   )
