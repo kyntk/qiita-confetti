@@ -9,14 +9,14 @@
     "128": "icons/icon128.png"
   },
   "action": {
-    "default_popup": "option/index.html"
+    "default_popup": "popup.html"
   },
   "author": "kyntk",
   "permissions": ["storage"],
   "content_scripts": [
     {
       "matches": ["https://qiita.com/*"],
-      "js": ["js/confetti.cjs.js"]
+      "js": ["src/confetti.tsx"]
     }
   ]
 }

@@ -3,14 +3,24 @@
   "private": true,
   "version": "1.2.0",
   "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build && yarn zip",
-    "zip": "rm -f extension.zip && zip -r extension extension"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "zip": "rm -f extension.zip && zip -r extension dist"
   },
-  "workspaces": [
-    "packages/*"
-  ],
+  "dependencies": {
+    "react": "^18.1.0",
+    "react-confetti": "^6.1.0",
+    "react-dom": "^18.1.0",
+    "react-use": "^17.4.0"
+  },
   "devDependencies": {
-    "turbo": "^1.2.14"
+    "@crxjs/vite-plugin": "^1.0.6",
+    "@types/chrome": "^0.0.188",
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.5",
+    "@vitejs/plugin-react": "^1.3.0",
+    "typescript": "^4.7.2",
+    "vite": "^2.9.9"
   }
 }
