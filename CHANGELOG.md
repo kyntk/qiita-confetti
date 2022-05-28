@@ -2,6 +2,10 @@
 
 ## Not Released
 
+## 1.3.0 - 2022-05-29
+
+- [#21](https://github.com/kyntk/qiita-confetti/pull/21) Make the amount of confetti adjustable
+
 ## 1.2.0 - 2022-05-22
 
 - [#12](https://github.com/kyntk/qiita-confetti/pull/12) Add temporary disabling feature
