@@ -16,11 +16,9 @@ Extension is available at chrome webstore.
 
 ## Development
 
-### Install
-
 - `yarn install`
-- `yarn build`
-- Load `./extension` directory to an unpacked extension in Chrome
+- `yarn dev`
+- Load `./dist` directory to an unpacked extension in Chrome
   - [Getting started - Chrome Developers](https://developer.chrome.com/docs/extensions/mv3/getstarted/#unpacked)
 
 ## License
