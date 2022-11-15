@@ -332,10 +332,10 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
-"@types/chrome@^0.0.196":
-  version "0.0.196"
-  resolved "https://registry.yarnpkg.com/@types/chrome/-/chrome-0.0.196.tgz#9e0196a6fcdf3c0e12cfbcd086cd28feb5206990"
-  integrity sha512-LAjGIQYC0wyiYu6lVT03dBrHBfYTMsM8EmNfQ+UdZipGZe8OUiir6weoa9oQoBw3T3RLzBCp9m904T+rFtpPAg==
+"@types/chrome@^0.0.201":
+  version "0.0.201"
+  resolved "https://registry.yarnpkg.com/@types/chrome/-/chrome-0.0.201.tgz#a23edbe4435be0418590dca20136ef2b2607331c"
+  integrity sha512-+D5Rjf4zCawOBHbriH8ct/F+fVsTjmSCmnQbufYW4LP1K+v+42zdSy6qbgr+TkiTlu7Rrw/JMVunQ/TY+kSysA==
   dependencies:
     "@types/filesystem" "*"
     "@types/har-format" "*"
